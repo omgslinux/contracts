@@ -3,7 +3,9 @@
 namespace AppBundle\Services\CAM;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
-class CamContractSite extends ContainerAwareInterface
+
+#class CamContractSite extends ContainerAwareInterface
+class CAMContractSite
 {
 	private $csvFields=[
 		"FECHA",
@@ -37,7 +39,7 @@ class CamContractSite extends ContainerAwareInterface
 	private $commonData=[
 		'language'	=> 'es',
 		'entidadAdjudicadora'	=> '1109266187266',
-		'pagename'	=> $this->pagename,
+		//'pagename'	=> $this->pagename,
 		'fechaFormalizacionDesde'	=> '',
 		'fechaFormalizacionHasta'	=> '',
 		'tipoPublicacion'	=> 'Contratos Menores',
@@ -45,7 +47,7 @@ class CamContractSite extends ContainerAwareInterface
 	];
 	private $POSTDATA=[
 		'_charset_'	=> 'UTF-8',
-		'pageid'	=> $this->pageid,
+		//'pageid'	=> $this->pageid,
 		'numeroExpediente' => '',
 		'referencia'	=> '',
 	];
@@ -53,12 +55,12 @@ class CamContractSite extends ContainerAwareInterface
  		'c'	=> 'Page',
 		'cid'	=> '1142536600028',
 		'codigo'	=> 'PCON_',
-		'idPagina'	=> $this->pageid,
+		//'idPagina'	=> $this->pageid,
 		'newPagina'	=> 0, // param
 		'numPagListado'	=> 5,
 		'paginaActual'	=> 0, // $pagina-1
 		'paginasTotal'=> 0, //param
-		'rootelement'	=> $this->pagename,
+		//'rootelement'	=> $this->pagename,
 		'site'	=> 'PortalContratacion',
 	];
 	private $buscar;
@@ -69,6 +71,7 @@ class CamContractSite extends ContainerAwareInterface
 		mkdir($this->getRefsDir());
 		$this->useragent=file($this->getParameter('%UserAgentFile%'));
 	}
+
 
 	public function getCacheDir()
 	{
@@ -96,15 +99,6 @@ class CamContractSite extends ContainerAwareInterface
 			$postData .="${key}=${value}&";
 		}
 		return $postData;
-	}
-
-	public function setCommonData(array $commonData)
-	{
-		foreach ($commonData as $key => $value) {
-			$this->commonData[$key]=$value;
-		}
-
-		return $this;
 	}
 
 	public function setCommonData(array $commonData)
@@ -238,8 +232,7 @@ class CamContractSite extends ContainerAwareInterface
 		$HTMLDATEFILENAME=$this->getDateHTMLFilename($fecha, $pagina);
 		$this->entradas=system("echo \"" . $this->buscar ."\"|grep txt07azu -A2|grep -v '#Top'|grep -v SUBIR");
 		if (file_exists($HTMLDATEFILENAME)) {
-			$stat=stat($HTMLDATEFILENAME);
-			if ($stat['size'] < 10000) {
+			if (filesize($HTMLDATEFILENAME) < 10000) {
 				unlink($HTMLDATEFILENAME);
 			}
 		}
@@ -280,7 +273,7 @@ class CamContractSite extends ContainerAwareInterface
 		//comilla=$(echo "$1"|sed -e 's/^"//' | sed -e 's/"$//' | sed -e 's/"/""/g')
 		return $comilla;
 	}
-
+/*
 	function extraerReferenciasPagina()
 	{
 		#entradas=$(echo "$buscar"|grep txt07azu -A2|grep -v '#Top'|grep -v SUBIR)
@@ -354,8 +347,8 @@ class CamContractSite extends ContainerAwareInterface
 						# Cacheo de CSV
 						file_put_contents($REFCSV, "$FECHA|$idoc|$siniva");
 					} else {
-						
-						IFS="|" read FECHA siniva < $REFCSV
+
+						//IFS="|" read FECHA siniva < $REFCSV
 					}
 					FDATE=$(printf "%s%s%s" $(echo $FECHA|cut -d"/" -f3) $(echo $FECHA|cut -d"/" -f2) $(echo $FECHA|cut -d"/" -f1))
 
@@ -377,7 +370,6 @@ class CamContractSite extends ContainerAwareInterface
 				}
 			}
 		}
-	}
 
 	function getDateHTMLFilename($fecha, $pagina)
 	{
@@ -429,5 +421,6 @@ class CamContractSite extends ContainerAwareInterface
 
 	rm $HTMLFILE $WGETFILE
 
+*/
 
 }

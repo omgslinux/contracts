@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Lista de principios activos</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Code</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for activePrinciple in activePrinciples %}
+            <tr>
+                <td><a href="{{ path('activePrinciple_edit', { 'id': activePrinciple.id }) }}">{{ activePrinciple.id }}</a></td>
+                <td>{{ activePrinciple.code }}</td>
+                <td>{{ activePrinciple.name }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('activePrinciple_new') }}">Crear un principio activo</a>
+        </li>
+    </ul>
+{% endblock %}

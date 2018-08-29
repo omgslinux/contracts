@@ -24,10 +24,10 @@ class MedicamentController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $companies = $em->getRepository('AppBundle:Medicament')->findAll();
+        $medicaments = $em->getRepository('AppBundle:Medicament')->findAll();
 
         return $this->render('medicament/index.html.twig', array(
-            'companies' => $companies,
+            'medicaments' => $medicaments,
         ));
     }
 

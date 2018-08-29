@@ -1,31 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Laboratories list</h1>
+    <h1>Lista de medicamentos</h1>
 
     <table>
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Actions</th>
+                <th>Nombre</th>
+                <th>Código nacional</th>
+                <th>Laboratorio</th>
             </tr>
         </thead>
         <tbody>
-        {% for laboratory in laboratories %}
+        {% for medicament in medicaments %}
             <tr>
-                <td><a href="{{ path('laboratory_show', { 'id': laboratory.id }) }}">{{ laboratory.id }}</a></td>
-                <td>{{ laboratory.name }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('laboratory_show', { 'id': laboratory.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('laboratory_edit', { 'id': laboratory.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
+                <td><a href="{{ path('medicament_edit', { 'id': medicament.id }) }}">{{ medicament.id }}</a></td>
+                <td>{{ medicament.name }}</td>
+                <td>{{ medicament.code }}</td>
+                <td>{{ medicament.laboratory }}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -33,7 +26,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('laboratory_new') }}">Create a new laboratory</a>
+            <a href="{{ path('medicament_new') }}">Crear un medicamento</a>
         </li>
     </ul>
 {% endblock %}

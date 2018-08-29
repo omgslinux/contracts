@@ -5,11 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\Medicament;
 use AppBundle\Entity\Laboratory;
+use AppBundle\Entity\ActivePrinciple;
 
 /**
  * Medicament
  *
- * @ORM\Table(name="medicament")
+ * @ORM\Table(name="medicaments")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MedicamentRepository")
  */
 class Medicament
@@ -52,11 +53,12 @@ class Medicament
     private $laboratory;
 
     /**
-     * @var \stdClass
+     * @var activePrinciple
      *
-     * @ORM\Column(name="ActiveP", type="object", nullable=true)
+     * @ORM\ManyToOne(targetEntity="ActivePrinciple", inversedBy="medicaments")
+     * @ORM\OrderBy({"name"="ASC"})
      */
-    private $activeP;
+    private $activePrinciple;
 
     /**
      * @var bool
@@ -179,9 +181,9 @@ class Medicament
      *
      * @return Meds
      */
-    public function setActiveP($activeP)
+    public function setActivePrinciple(ActivePrinciple $value)
     {
-        $this->activeP = $activeP;
+        $this->activePrinciple = $value;
 
         return $this;
     }
@@ -191,9 +193,9 @@ class Medicament
      *
      * @return \stdClass
      */
-    public function getActiveP()
+    public function getActivePrinciple()
     {
-        return $this->activeP;
+        return $this->activePrinciple;
     }
 
     /**

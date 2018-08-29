@@ -1,27 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Laboratory</h1>
+    <h1>Medicamento</h1>
 
     <table>
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ laboratory.id }}</td>
+                <td>{{ medicament.id }}</td>
             </tr>
             <tr>
                 <th>Name</th>
-                <td>{{ laboratory.name }}</td>
+                <td>{{ medicament.name }}</td>
             </tr>
         </tbody>
     </table>
 
     <ul>
         <li>
-            <a href="{{ path('laboratory_index') }}">Back to the list</a>
+            <a href="{{ path('medicament_index') }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('laboratory_edit', { 'id': laboratory.id }) }}">Edit</a>
+            <a href="{{ path('medicament_edit', { 'id': medicament.id }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

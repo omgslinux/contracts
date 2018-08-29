@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Awardtypes list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for awardType in awardTypes %}
+            <tr>
+                <td><a href="{{ path('awardtype_show', { 'id': awardType.id }) }}">{{ awardType.id }}</a></td>
+                <td>{{ awardType.name }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('awardtype_show', { 'id': awardType.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('awardtype_edit', { 'id': awardType.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('awardtype_new') }}">Create a new awardType</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Contractors list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Budgetid</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contractor in contractors %}
+            <tr>
+                <td><a href="{{ path('contractor_show', { 'id': contractor.id }) }}">{{ contractor.id }}</a></td>
+                <td>{{ contractor.name }}</td>
+                <td>{{ contractor.budgetid }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('contractor_show', { 'id': contractor.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('contractor_edit', { 'id': contractor.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('contractor_new') }}">Create a new contractor</a>
+        </li>
+    </ul>
+{% endblock %}

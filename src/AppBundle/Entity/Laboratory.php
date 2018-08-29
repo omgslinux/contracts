@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Laboratory
  *
- * @ORM\Table(name="laboratory")
+ * @ORM\Table(name="laboratories")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\LaboratoryRepository")
  */
 class Laboratory
@@ -42,6 +42,13 @@ class Laboratory
      * @ORM\OneToMany(targetEntity="Medicament", mappedBy="laboratory")
      */
     private $medicaments;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Contract", mappedBy="company")
+     */
+    private $contracts;
 
 
     public function __construct()

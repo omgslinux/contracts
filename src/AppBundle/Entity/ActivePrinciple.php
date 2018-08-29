@@ -3,13 +3,16 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\Medicament;
 use AppBundle\Entity\Laboratory;
+use AppBundle\Entity\ActivePrinciple;
 
 /**
  * ActivePrinciple
  *
- * @ORM\Table(name="active_principle")
+ * @ORM\Table(name="active_principles")
+ * @ORM\Entity
  */
 class ActivePrinciple
 {
@@ -25,31 +28,36 @@ class ActivePrinciple
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=8, nullable=true)
+     * @ORM\Column(type="string", length=16, nullable=true, unique=true)
      */
     private $code;
 
     /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="ActivePrinciple" nullable=true)
+     * @ORM\ManyToOne(targetEntity="ActivePrinciple")
      */
     private $parent;
 
     /**
-     * @var bool
+     * @var ArrayCollection
      *
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\OneToMany(targetEntity="Medicament", mappedBy="activePrinciple")
      */
-    private $billSNS;
+    private $medicaments;
 
+
+    public function __construct()
+    {
+        $this->medicaments=new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -116,92 +124,25 @@ class ActivePrinciple
      *
      * @return ActivePrinciple
      */
-    public function setSituation($situation)
+    public function setParent(ActivePrinciple $value)
     {
-        $this->situation = $situation;
+        $this->parent = $value;
 
         return $this;
     }
 
     /**
-     * Get situation
-     *
-     * @return int
-     */
-    public function getSituation()
-    {
-        return $this->situation;
-    }
-
-    /**
-     * Set laboratory
-     *
-     * @param Laboratory $laboratory
+     * Get parent
      *
      * @return ActivePrinciple
      */
-    public function setLaboratory(Laboratory $laboratory)
+    public function getParent()
     {
-        $this->laboratory = $laboratory;
-
-        return $this;
+        return $this->parent;
     }
 
-    /**
-     * Get laboratory
-     *
-     * @return Laboratory
-     */
-    public function getLaboratory()
+    public function __toString()
     {
-        return $this->laboratory;
-    }
-
-    /**
-     * Set activeP
-     *
-     * @param \stdClass $activeP
-     *
-     * @return ActivePrinciple
-     */
-    public function setActiveP($activeP)
-    {
-        $this->activeP = $activeP;
-
-        return $this;
-    }
-
-    /**
-     * Get activeP
-     *
-     * @return \stdClass
-     */
-    public function getActiveP()
-    {
-        return $this->activeP;
-    }
-
-    /**
-     * Set billSNS
-     *
-     * @param boolean $billSNS
-     *
-     * @return ActivePrinciple
-     */
-    public function setBillSNS($billSNS)
-    {
-        $this->billSNS = $billSNS;
-
-        return $this;
-    }
-
-    /**
-     * Get billSNS
-     *
-     * @return bool
-     */
-    public function getBillSNS()
-    {
-        return $this->billSNS;
+        return $this->getName() . ' (' . $this->getCode() . ")";
     }
 }

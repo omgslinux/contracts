@@ -1,6 +1,11 @@
 <?php
-$INICIO=$argv[1];
-$FIN=$argv[2];
+namespace AppBundle\Services\CAM;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+
+//$INICIO=$argv[1];
+//$FIN=$argv[2];
+$INICIO="2016-01-01";
+$FIN="2016-12-31";
 
 $INIDATE=new \DateTime($INICIO);
 $FINDATE=new \DateTime($FIN);
@@ -30,7 +35,7 @@ $DATETIMESTART=new \DateTime();
 $REFDIR="REFS";
 system("mkdir -p $REFDIR");
 
-class PortalSearch
+class CAMContratosMenores
 {
 
 
@@ -41,7 +46,7 @@ class PortalSearch
 	private $COMMONDATA=[
 		'language'	=> 'es',
 		'entidadAdjudicadora'	=> '1109266187266',
-		'pagename'	=> $this->pagename,
+//		'pagename'	=> $this->pagename,
 		'fechaFormalizacionDesde'	=> '',
 		'fechaFormalizacionHasta'	=> '',
 		'tipoPublicacion'	=> 'Contratos Menores',
@@ -49,7 +54,7 @@ class PortalSearch
 	];
 	private $POSTDATA=[
 		'_charset_'	=> 'UTF-8',
-		'pageid'	=> $this->pageid,
+	//	'pageid'	=> $this->pageid,
 		'numeroExpediente' => '',
 		'referencia'	=> '',
 	];
@@ -57,12 +62,12 @@ class PortalSearch
  		'c'	=> 'Page',
 		'cid'	=> '1142536600028',
 		'codigo'	=> 'PCON_',
-		'idPagina'	=> $this->pageid,
+		//'idPagina'	=> $this->pageid,
 		'newPagina'	=> 0, // param
 		'numPagListado'	=> 5,
 		'paginaActual'	=> 0, // $pagina-1
 		'paginasTotal'=> 0, //param
-		'rootelement'	=> $this->pagename,
+		//'rootelement'	=> $this->pagename,
 		'site'	=> 'PortalContratacion',
 	];
 	private $buscar;
@@ -132,6 +137,7 @@ function comillas ($text)
 	return $comilla;
 }
 
+/*
 function procesarPagina($buscar)
 {
 	entradas=$(echo "$buscar"|grep txt07azu -A1)
@@ -196,6 +202,8 @@ function procesarPagina($buscar)
 
 }
 
+*/
+/*
 buscar $INICIO $FIN
 #clear
 pagina=1
@@ -235,3 +243,4 @@ echo "Número de contratos OK: $contratosOK de $contratoNumero, paginas: $pagina
 echo "Archivo: $UTF8FILE"
 
 rm $HTMLFILE $WGETFILE
+*/
